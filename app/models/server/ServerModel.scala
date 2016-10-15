@@ -19,7 +19,8 @@ case class Question(topics: Seq[String],
 
   def hasAge(age: Int) = {
     if (ages.isEmpty) age >= 25
-    else ages contains age
+    else if (age <= 80) ages contains age
+    else ages.max >= 80
   }
 }
 
