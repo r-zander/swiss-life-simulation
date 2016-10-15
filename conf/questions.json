@@ -136,12 +136,7 @@
           "text": "Undecided",
           "satisfaction": 3,
           "money": 8,
-          "probability": 0.10,
-          "preconditions": [
-            {
-              "previousAnswer": "IstFrau"
-            }
-          ]
+          "probability": 0.10
         }
       ]
     },
@@ -238,14 +233,12 @@
           "satisfaction": "2",
           "money": "5",
           "probability": 0.4
-
         },
         {
           "text": "One",
           "satisfaction": "6",
           "money": "5",
           "probability": 0.3
-
         },
         {
           "text": "Two or more",
@@ -332,7 +325,7 @@
       ],
       "answers": [
         {
-          "refs" : "sekB",
+          "refs": "sekB",
           "text": "Sek B and a baker's apprenticeship",
           "satisfaction": 5,
           "money": 4,
@@ -396,10 +389,16 @@
       "answers": [
         {
           "text": "Yes, working fulltime",
+          "refs": "employed",
           "satisfaction": 4,
           "money": 9,
-          "probability": 0.3
-
+          "probability": 0.3,
+          "riskFactors": [
+            {
+              "cause": "Dying of heart attack",
+              "value": 0.2
+            }
+          ]
         },
         {
           "text": "Just started university",
@@ -410,13 +409,19 @@
             {
               "PreviousAnswer": "gymnasium"
             }
-            ]
+          ]
         },
         {
           "text": "No, can't find a job",
           "satisfaction": 1,
           "money": 1,
-          "probability": 0.10
+          "probability": 0.10,
+          "riskFactors": [
+            {
+              "cause": "Suicide",
+              "value": 0.1
+            }
+          ]
         }
       ]
     },
@@ -456,9 +461,239 @@
             {
               "PreviousAnswer": "IstMann"
             }
+          ],
+          "riskFactors": [
+            {
+              "cause": "Accidentally getting shot",
+              "value": 0.1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topics": [
+        "C"
+      ],
+      "preview": "Career",
+      "text": "What are you doing for your career?",
+      "ages": [
+        21,
+        25,
+        30,
+        35,
+        40, 50, 60
+      ],
+      "answers": [
+        {
+          "text": "I want to do further education",
+          "satisfaction": 5,
+          "money": 4,
+          "probability": 0.3,
+          "preconditions": [
+            {
+              "PreviousAnswer": "employed"
+            }
+          ]
+        },
+        {
+          "text": "Going for this promotion",
+          "satisfaction": 6,
+          "money": 9,
+          "probability": 0.5,
+          "preconditions": [
+            {
+              "PreviousAnswer": "employed"
+            }
+          ]
+        },
+        {
+          "text": "Chilling at home",
+          "satisfaction": 4,
+          "money": 1,
+          "probability": 0.2
+        },
+        {
+          "text": "Employed",
+          "satisfaction": 7,
+          "money": 8,
+          "probability": 0.5
+        }
+      ]
+    },
+    {
+      "topics": [
+        "L"
+      ],
+      "preview": "Leisure time",
+      "text": "What do you do in your free time?",
+      "ages": [
+        21, 25, 30, 35, 40, 50, 60, 70, 80],
+      "answers": [
+        {
+          "text": "Go out with my friends",
+          "satisfaction": 8,
+          "money": 3,
+          "probability": 0.3,
+          "riskFactors": [
+            {
+              "cause": "Drank yourself to death",
+              "value": 0.1
+            }
+          ]
+        },
+        {
+          "text": "Rock climbing in Thailand",
+          "satisfaction": 10,
+          "money": 2,
+          "probability": 0.1,
+          "preconditions": [
+            {
+              "PreviousAnswer": "gymnasium"
+            }
+          ],
+          "riskFactors": [
+            {
+              "cause": "Killed by a Thai prostitute",
+              "value": 0.1
+            }
+          ]
+        },
+        {
+          "text": "Watching TV and play on the console",
+          "satisfaction": 1,
+          "money": 4,
+          "probability": 0.20,
+          "riskFactors": [
+            {
+              "cause": "Suicide",
+              "value": 0.1
+            }
+          ]
+        },
+        {
+          "text": "Hit the gym",
+          "satisfaction": 1,
+          "money": 4,
+          "probability": 0.50,
+          "riskFactors": [
+            {
+              "cause": "getting healthy",
+              "value": -0.1
+            }
+          ]
+        },
+
+      ]
+    },
+    {
+      "topics": [
+        "F"
+      ],
+      "preview": "Interpersonal stuff",
+      "text": "What are you trying to find on a personal relations?",
+      "ages": [
+        21, 25, 30, 35, 40, 50, 60, 70, 80],
+      "answers": [
+        {
+          "text": "Marrying",
+          "refs": "married",
+          "satisfaction": 8,
+          "money": 5,
+          "probability": 0.3,
+          "riskFactors": [
+            {
+              "cause": "You cheated on your partner and he/she killed you",
+              "value": 0.1
+            }
+          ]
+        },
+        {
+          "text": "Have children",
+          "satisfaction": 9,
+          "money": 2,
+          "probability": 0.3,
+          "preconditions": [
+            {
+              "PreviousAnswer": "married"
+            }
+          ]
+        },
+        {
+          "text": "Enjoy the single life",
+          "satisfaction": 7,
+          "money": 9,
+          "probability": 0.10,
+          "riskFactors": [
+            {
+              "cause": "Suicide",
+              "value": 0.1
+            }
+          ]
+        },
+        {
+          "text": "Live with my partner",
+          "satisfaction": 7,
+          "money": 5,
+          "probability": 0.10
+        }
+      ]
+    },
+    {
+      "topics": [
+        "L"
+      ],
+      "preview": "Pleasure and addictions",
+      "text": "Pleasure and addictions",
+      "ages": [
+        21, 25, 30, 35, 40, 50, 60, 70, 80],
+      "answers": [
+        {
+          "text": "Caffeine",
+          "satisfaction": 5,
+          "money": 7,
+          "probability": 023,
+          "riskFactors": [
+            {
+              "cause": "Heart attack",
+              "value": 0.1
+            }
+          ]
+        },
+        {
+          "text": "Alcohol",
+          "satisfaction": 8,
+          "money": 4,
+          "probability": 0.6
+
+        },
+        {
+          "text": "Drugs",
+          "satisfaction": 7,
+          "money": 3,
+          "probability": 0.10,
+          "riskFactors": [
+            {
+              "cause": "Overdose",
+              "value": 0.1
+            }
+          ]
+        },
+        {
+          "text": "Base jumping",
+          "satisfaction": 10,
+          "money": 7,
+          "probability": 0.10,
+          "riskFactors": [
+            {
+              "cause": "Crash",
+              "value": 0.4
+            }
           ]
         }
       ]
     }
+
   ]
 }
+
