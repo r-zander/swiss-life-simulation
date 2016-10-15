@@ -1,88 +1,462 @@
 {
-  "topics" : [ "C", "L", "F" ],
-  "ages" : [ 0, 5, 10, 15, 18, 21, 25, 30, 35, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150 ],
-  "questions" : [
+  "topics": [
+    "C",
+    "L",
+    "F"
+  ],
+  "ages": [
+    0,
+    5,
+    10,
+    15,
+    18,
+    21,
+    25,
+    30,
+    35,
+    40,
+    50,
+    60,
+    70,
+    80,
+    90,
+    100,
+    110,
+    120,
+    130,
+    140,
+    150
+  ],
+  "questions": [
     {
-      "topics" : [ "C" ],
-      "text" : "What is your home canton ?",
-      "ages" : [ 0 ],
-      "answers" : [
+      "topics": [
+        "C"
+      ],
+      "preview": "Home Canton",
+      "text": "What is your home canton ?",
+      "ages": [
+        0
+      ],
+      "answers": [
         {
-          "text" : "Berne",
-          "satisfaction" : 5,
-          "money" : 1,
-          "probability" : 0.35
-        }, {
-          "text" : "Zurich",
-          "satisfaction" : 4,
-          "money" : 3,
-          "probability" : 0.45
-        }, {
-          "text" : "Ticino",
-          "satisfaction" : 7,
-          "money" : 0,
-          "probability" : 0.20
+          "text": "Berne",
+          "satisfaction": 5,
+          "money": 1,
+          "probability": 0.35
+        },
+        {
+          "text": "Zurich",
+          "satisfaction": 4,
+          "money": 3,
+          "probability": 0.45
+        },
+        {
+          "text": "Ticino",
+          "satisfaction": 7,
+          "money": 0,
+          "probability": 0.20
         }
       ]
-    }, {
-      "topics" : [ "F" ],
-      "text" : "Who are your parents ?",
-      "ages" : [ 0 ],
-      "answers" : [
+    },
+    {
+      "topics": [
+        "F"
+      ],
+      "preview": "Parents",
+      "text": "Who are your parents ?",
+      "ages": [
+        0
+      ],
+      "answers": [
         {
-          "text" : "Both Swiss, of course !",
-          "satisfaction" : 3,
-          "money" : 4,
-          "probability" : 0.50
-        }, {
-          "text" : "Swiss dad, Spanish mom",
-          "satisfaction" : 5,
-          "money" : 2,
-          "probability" : 0.20
-        }, {
-          "text" : "Australian dad, Norwegian mom",
-          "satisfaction" : 2,
-          "money" : 5,
-          "probability" : 0.10
-        }, {
-          "text" : "Both Italian !",
-          "satisfaction" : 6,
-          "money" : 0,
-          "probability" : 0.20
+          "text": "Both Swiss, of course !",
+          "satisfaction": 3,
+          "money": 4,
+          "probability": 0.50
+        },
+        {
+          "text": "Swiss dad, Spanish mom",
+          "satisfaction": 5,
+          "money": 2,
+          "probability": 0.20
+        },
+        {
+          "text": "Australian dad, Norwegian mom",
+          "satisfaction": 2,
+          "money": 5,
+          "probability": 0.10
+        },
+        {
+          "text": "Both Italian !",
+          "satisfaction": 6,
+          "money": 0,
+          "probability": 0.20
         }
       ]
-    }, {
-      "topics" : [ "L" ],
-      "text" : "What is your sex ?",
-      "ages" : [ 0 ],
-      "answers" : [
+    },
+    {
+      "topics": [
+        "L"
+      ],
+      "text": "What is your sex ?",
+      "preview": "Sex",
+      "ages": [
+        0
+      ],
+      "answers": [
         {
-          "refs" : [ "IstFrau" ],
-          "text" : "Female",
-          "satisfaction" : 6,
-          "money" : 4,
-          "probability" : 0.45
-        }, {
-          "refs" : [ "IstMann" ],
-          "text" : "Male",
-          "satisfaction" : 4,
-          "money" : 6,
-          "probability" : 0.45,
+          "refs": [
+            "IstFrau"
+          ],
+          "text": "Female",
+          "satisfaction": 6,
+          "money": 4,
+          "probability": 0.45
+        },
+        {
+          "refs": [
+            "IstMann"
+          ],
+          "text": "Male",
+          "satisfaction": 4,
+          "money": 6,
+          "probability": 0.45,
           "riskFactors": [
             {
-              "cause" : "Männer leben kürzer, sorry !",
-              "value" : 0.5
+              "cause": "Männer leben kürzer, sorry !",
+              "value": 0.1
             }
           ]
-        }, {
-          "refs" : [ "IstMann", "IstFrau" ],
-          "text" : "Undecided",
-          "satisfaction" : 3,
-          "money" : 8,
-          "probability" : 0.10,
-          "preconditions" : [ {
-            "previousAnswer" : "IstFrau"
-          } ]
+        },
+        {
+          "refs": [
+            "IstMann",
+            "IstFrau"
+          ],
+          "text": "Undecided",
+          "satisfaction": 3,
+          "money": 8,
+          "probability": 0.10,
+          "preconditions": [
+            {
+              "previousAnswer": "IstFrau"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topics": [
+        "L"
+      ],
+      "text": "What's your name?",
+      "preview": "Name",
+      "ages": [
+        5
+      ],
+      "answers": [
+        {
+          "text": "Anna",
+          "satisfaction": "7",
+          "money": "7",
+          "probability": 0.3,
+          "preconditions": [
+            {
+              "PreviousAnswer": "IstFrau"
+            }
+          ]
+        },
+        {
+          "text": "Frederike",
+          "satisfaction": "4",
+          "money": "4",
+          "probability": 0.3,
+          "preconditions": [
+            {
+              "PreviousAnswer": "IstFrau"
+            }
+          ]
+        },
+        {
+          "text": "Laura",
+          "satisfaction": "9",
+          "money": "8",
+          "probability": 0.3,
+          "preconditions": [
+            {
+              "PreviousAnswer": "IstFrau"
+            }
+          ]
+        },
+        {
+          "text": "Hans-Ludwig",
+          "satisfaction": "4",
+          "money": "5",
+          "probability": 0.3,
+          "preconditions": [
+            {
+              "PreviousAnswer": "IstMann"
+            }
+          ]
+        },
+        {
+          "text": "Noah",
+          "satisfaction": "5",
+          "money": "7",
+          "probability": 0.3,
+          "preconditions": [
+            {
+              "PreviousAnswer": "IstMann"
+            }
+          ]
+        },
+        {
+          "text": "Robert",
+          "satisfaction": "6",
+          "money": "7",
+          "probability": 0.3,
+          "preconditions": [
+            {
+              "PreviousAnswer": "IstMann"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topics": [
+        "F"
+      ],
+      "text": "How many siblings do you have?",
+      "preview": "Siblings",
+      "ages": [
+        5
+      ],
+      "answers": [
+        {
+          "text": "None :-(",
+          "satisfaction": "2",
+          "money": "5",
+          "probability": 0.4
+
+        },
+        {
+          "text": "One",
+          "satisfaction": "6",
+          "money": "5",
+          "probability": 0.3
+
+        },
+        {
+          "text": "Two or more",
+          "satisfaction": "9",
+          "money": "5",
+          "probability": 0.3
+        }
+      ]
+    },
+    {
+      "topics": [
+        "F"
+      ],
+      "text": "Do you have pets?",
+      "preview": "Pets",
+      "ages": [
+        5
+      ],
+      "answers": [
+        {
+          "text": "Yes!",
+          "satisfaction": "10",
+          "money": "4",
+          "probability": 0.5,
+          "riskFactors": [
+            {
+              "cause": "You get eaten",
+              "value": 0.1
+            }
+          ]
+        },
+        {
+          "text": "No",
+          "satisfaction": "5",
+          "money": "5",
+          "probability": 0.5
+        }
+      ]
+    },
+    {
+      "topics": [
+        "L"
+      ],
+      "preview": "Hobbies",
+      "text": "What hobbies do you have?",
+      "ages": [
+        12
+      ],
+      "answers": [
+        {
+          "text": "Soccer",
+          "satisfaction": 7,
+          "money": 5,
+          "probability": 0.3
+        },
+        {
+          "text": "Piano",
+          "satisfaction": 6,
+          "money": 2,
+          "probability": 0.2
+        },
+        {
+          "text": "Reading",
+          "satisfaction": 2,
+          "money": 6,
+          "probability": 0.10
+        },
+        {
+          "text": "Hacking the Bitcoin Blockchain",
+          "satisfaction": 5,
+          "money": 10,
+          "probability": 0.1
+        }
+      ]
+    },
+    {
+      "topics": [
+        "C"
+      ],
+      "preview": "Education",
+      "text": "What education do you choose?",
+      "ages": [
+        12
+      ],
+      "answers": [
+        {
+          "refs" : "sekB",
+          "text": "Sek B and a baker's apprenticeship",
+          "satisfaction": 5,
+          "money": 4,
+          "probability": 0.3
+        },
+        {
+          "refs": "sekA",
+          "text": "Sek A and an apprenticeship in a bank",
+          "satisfaction": 6,
+          "money": 5,
+          "probability": 0.3
+        },
+        {
+          "refs": "gymnasium",
+          "text": "Gymnasium",
+          "satisfaction": 4,
+          "money": 2,
+          "probability": 0.10
+        }
+      ]
+    },
+    {
+      "topics": [
+        "L"
+      ],
+      "preview": "Friends",
+      "text": "How many friends do you have?",
+      "ages": [
+        12
+      ],
+      "answers": [
+        {
+          "text": "None :(",
+          "satisfaction": 2,
+          "money": 6,
+          "probability": 0.3
+        },
+        {
+          "text": "One",
+          "satisfaction": 7,
+          "money": 2,
+          "probability": 0.5
+        },
+        {
+          "text": "Tons of friends",
+          "satisfaction": 10,
+          "money": 4,
+          "probability": 0.2
+        }
+      ]
+    },
+    {
+      "topics": [
+        "C"
+      ],
+      "preview": "Job",
+      "text": "Do you have a job?",
+      "ages": [
+        18
+      ],
+      "answers": [
+        {
+          "text": "Yes, working fulltime",
+          "satisfaction": 4,
+          "money": 9,
+          "probability": 0.3
+
+        },
+        {
+          "text": "Just started university",
+          "satisfaction": 6,
+          "money": 2,
+          "probability": 0.2,
+          "preconditions": [
+            {
+              "PreviousAnswer": "gymnasium"
+            }
+            ]
+        },
+        {
+          "text": "No, can't find a job",
+          "satisfaction": 1,
+          "money": 1,
+          "probability": 0.10
+        }
+      ]
+    },
+    {
+      "topics": [
+        "C"
+      ],
+      "preview": "Army",
+      "text": "Are you going to the army?",
+      "ages": [
+        18
+      ],
+      "answers": [
+        {
+          "text": "Nah, I'm UT",
+          "satisfaction": 8,
+          "money": 6,
+          "probability": 0.3
+        },
+        {
+          "text": "Nah, don't have to!",
+          "satisfaction": 6,
+          "money": 6,
+          "probability": 0.9,
+          "preconditions": [
+            {
+              "PreviousAnswer": "IstFrau"
+            }
+          ]
+        },
+        {
+          "text": "Yeah, I have to!",
+          "satisfaction": 10,
+          "money": 4,
+          "probability": 0.2,
+          "preconditions": [
+            {
+              "PreviousAnswer": "IstMann"
+            }
+          ]
         }
       ]
     }
