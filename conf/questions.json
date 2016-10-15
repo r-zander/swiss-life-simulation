@@ -432,7 +432,12 @@
           "text": "Nah, I'm UT",
           "satisfaction": 8,
           "money": 6,
-          "probability": 0.3
+          "probability": 0.3,
+          "preconditions": [
+            {
+              "previousAnswer": "IstMann"
+            }
+          ]
         },
         {
           "text": "Nah, don't have to!",
@@ -585,7 +590,7 @@
         "F"
       ],
       "preview": "Interpersonal stuff",
-      "text": "What are you trying to find on a personal relations?",
+      "text": "What's going on with your personal relations?",
       "ages": [
         18, 21, 25, 30, 35, 40, 50, 60, 70, 80,
         90],
