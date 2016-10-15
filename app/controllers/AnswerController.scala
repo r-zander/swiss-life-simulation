@@ -6,6 +6,7 @@ import javax.ws.rs.PathParam
 import com.wordnik.swagger.annotations._
 import models._
 import modules.{Rand, Db}
+import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc._
 
@@ -14,6 +15,7 @@ import scala.util.{Failure, Random, Success}
 
 @Api(value = "/game/<gameId>/answer/<answerId>", description = "Answers micro-services")
 class AnswerController extends Controller with ClientModel {
+	val logger = Logger("application.AnswerController")
 
 	val RND = new Random
 
@@ -27,7 +29,9 @@ class AnswerController extends Controller with ClientModel {
 										@ApiParam(value = "answerId of the user answer") @PathParam("answerId") answerId: String
 									) = Action {
 		writeAnswer(gameId, answerId) match {
-			case Failure(ex) => NotFound(Json.toJson(ClientError(ex.toString)))
+			case Failure(ex) =>
+				logger.error(s"SubmitAnswer($gameId,$answerId) failed.", ex)
+				NotFound(Json.toJson(ClientError(ex.toString)))
 			case Success(questions) => Ok(Json.toJson(questions))
 		}
 	}
@@ -52,6 +56,7 @@ class AnswerController extends Controller with ClientModel {
 	}
 
 	def splitQuestions(gameState: HiddenGameState, answer: HiddenAnswer) = {
+		logger.info(s"Open Questions for Game ${gameState.gameId} : ${gameState.openQuestions}")
 		gameState.openQuestions.partition(_.answers contains answer) match {
 			case (answered, _) if answered.isEmpty => sys.error(s"Ungültige Antwort ${answer.id}")
 			case (Seq(answered), unanswered) => answered -> unanswered
@@ -64,7 +69,7 @@ class AnswerController extends Controller with ClientModel {
 
 	def autoAnswer(gameState: HiddenGameState, question: HiddenQuestion): (HiddenQuestion, HiddenAnswer) = {
 		def weight(answer: HiddenAnswer) = answer.probability
-		val answer = Rand.selectRandom(question.answers, weight)
+		val answer = Rand.selectRandom(question.answers, weight, s"Answer")
 		question -> answer
 	}
 
@@ -82,48 +87,4 @@ class AnswerController extends Controller with ClientModel {
 		nextGameState
 	}
 
-	@tailrec
-	private def selectQuestions(topics: List[String], selected: Seq[Question], available: Seq[HiddenQuestion]): Seq[Question] = topics match {
-		case Nil => selected
-		case t :: ts =>
-			val questions = available.filter(_.topics contains t)
-			val qInt = Rand.selectRandom(questions)
-			val qExt = qInt.external(t)
-			selectQuestions(ts, selected :+ qExt, available.filterNot(_ == qInt))
-	}
-
-
-	/*
-	@ApiOperation(
-		nickname = "initUser",
-		value = "Init a user",
-		notes = "Init a user and return id",
-		httpMethod = "PUT")
-	@ApiResponses(Array(
-		new ApiResponse(code = 200, message = "LGTM"),
-		new ApiResponse(code = 400, message = "Invalid params"),
-		new ApiResponse(code = 405, message = "User exists"),
-		new ApiResponse(code = 500, message = "Internal server error")
-	))
-	@ApiImplicitParams(Array(
-		new ApiImplicitParam (
-			name = "email", value = "email of the user to init", 
-			required = true, dataType = "String", paramType = "body"),
-		new ApiImplicitParam (
-			name = "sex", value = "sex of the user to init", 
-			required = true, dataType = "String", paramType = "body"),
-		new ApiImplicitParam (
-			name = "passwd", value = "password the user input", 
-			required = true, dataType = "String", paramType = "body")
-	))
-	def initUser = Action { request =>
-		var retUserOpt = None: Option[User]
-
-		if (retUserOpt.isDefined) {
-			Ok(Json.toJson(retUserOpt.get))
-		} else {
-			InternalServerError
-		}
-	}
-	*/
 }

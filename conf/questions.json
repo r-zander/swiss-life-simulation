@@ -52,15 +52,25 @@
         }
       ]
     }, {
-      "topics" : [ "C" ],
-      "text" : "In welchen Kanton bist du geboren ?",
+      "topics" : [ "L" ],
+      "text" : "What is your sex ?",
       "ages" : [ 0 ],
       "answers" : [
         {
-          "text" : "Bern",
-          "satisfaction" : 5,
-          "money" : 0,
-          "probability" : 0.34
+          "text" : "Female",
+          "satisfaction" : 6,
+          "money" : 4,
+          "probability" : 0.49
+        }, {
+          "text" : "Male",
+          "satisfaction" : 4,
+          "money" : 6,
+          "probability" : 0.49
+        }, {
+          "text" : "Undecided",
+          "satisfaction" : 3,
+          "money" : 8,
+          "probability" : 0.02
         }
       ]
     }

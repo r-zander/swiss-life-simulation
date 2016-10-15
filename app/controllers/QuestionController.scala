@@ -18,6 +18,7 @@ import scala.util.{Success, Failure, Random}
 
 @Api(value = "/game/<gameid>/questions", description = "Questions micro-service")
 class QuestionController extends Controller with ClientModel {
+  val logger = Logger("application.QuestionController")
 
 	val RND = new Random
 
@@ -49,8 +50,11 @@ class QuestionController extends Controller with ClientModel {
 		httpMethod = "GET")
 	def getQuestions(@ApiParam(value = "gameId of the game to fetch") @PathParam("gameId") gameId: String) = Action {
 		getQuestionsForGame(gameId) match {
-			case Failure(ex) => NotFound(Json.toJson(ClientError(ex.toString)))
-			case Success(questions) => Ok(Json.toJson(questions))
+			case Failure(ex) =>
+        logger.error(s"GetQuestions($gameId) failed.", ex)
+        NotFound(Json.toJson(ClientError(ex.toString)))
+			case Success(questions) =>
+        Ok(Json.toJson(questions))
 		}
 	}
 
@@ -58,7 +62,12 @@ class QuestionController extends Controller with ClientModel {
 		val allQuestions = Db.config.questions.filter{
 			_ hasAge gameState.age
 		}
-		selectQuestions(Db.config.topics, Nil, allQuestions)
+		selectQuestions(Db.config.topics, Nil, allQuestions) map { questions =>
+      val newGameState = gameState.copy(openQuestions = questions)
+      Db.updateGameState(newGameState)
+      questions
+    }
+    questions
 	}
 
 	@tailrec
@@ -66,7 +75,7 @@ class QuestionController extends Controller with ClientModel {
 		case Nil => selected
 		case t :: ts =>
 			val questions = available.filter(_.topics contains t)
-			val qInt = Rand.selectRandom(questions)
+			val qInt = Rand.selectRandom(questions, s"Question für Topic '$t'")
 			val qExt = qInt.external(t)
 			selectQuestions(ts, selected :+ qExt, available.filterNot(_ == qInt))
 	}

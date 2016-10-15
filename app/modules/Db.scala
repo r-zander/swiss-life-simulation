@@ -25,7 +25,11 @@ object Db extends ServerModel {
     gameState
   }
 
-  def gameState(gameid: String) = Try(_gameState(gameid))
+  def gameState(gameid: String) = Try {
+    _gameState get gameid getOrElse {
+      throw new RuntimeException(s"Game with id '$gameid' not found")
+    }
+  }
 
   def answer(answerId: String) = Try {
     config.questions flatMap (_.answers) find (_.id == answerId) getOrElse {

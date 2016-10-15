@@ -6,11 +6,13 @@ import javax.ws.rs.PathParam
 import com.wordnik.swagger.annotations._
 import models._
 import modules.Db
+import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc._
 
 @Api(value = "/game", description = "Game micro-service")
 class GameController extends Controller with ClientModel {
+	val logger = Logger("application.GameController")
 
 	/*@ApiOperation(
 		nickname = "getUserById", 
