@@ -1,6 +1,16 @@
 #main {
     padding: 0.1in;
 
+    .backgroundsLoop(@index) when (@index > 0){
+        .backgroundsLoop((@index - 1));
+
+        &.question@{index} .right {
+            background: extract(@colors, @index);
+        }
+    }
+
+    .backgroundsLoop(3);
+
     @defaultBackground: #C0E6FF;
 
     > h1 {
@@ -11,18 +21,25 @@
     }
 
     > .left {
-        width: 30%;
+        width: 35%;
         float: left;
+        padding-right: 0.5em;
 
         > img {
             width: 100%;
         }
+
+        > .satisfaction {
+            display: block;
+            margin: 0 auto;
+            width: 90%;
+        }
     }
 
     > .right {
-        width: 70%;
+        width: 65%;
         float: left;
-        padding-left: 1em;
+        padding-left: 0.5em;
 
         > p {
             margin: 0;
@@ -34,15 +51,17 @@
         margin: 0;
         padding: 0;
 
-        .itemsLoop(@index) when (@index > 0){
-            .itemsLoop((@index - 1));
+        &.questions {
+            .itemsLoop(@index) when (@index > 0) {
+                .itemsLoop((@index - 1));
 
-            >:nth-child(@{index}) {
-                color: extract(@colors, @index)
+                > :nth-child(@{index}) {
+                    color: extract(@colors, @index);
+                }
             }
-        }
 
-        .itemsLoop(3);
+            .itemsLoop(3);
+        }
 
         > li {
             margin-top: 0.5em;

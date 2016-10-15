@@ -32,14 +32,17 @@ function updateMainScreen() {
             $main.find('.topicInstructions').show();
 
             var $options = $main.find('.options');
+            $options.addClass('questions');
             $options.empty();
 
-            questions.forEach(function (question) {
-                var link = $('<a href="#"><img scr="" />' + question.text + '</a>');
+            questions.forEach(function (question, index) {
+                var link = $('<a href="#"><img scr="" />' + question.preview + '</a>');
                 link.click(function () {
                     $main.find('.topicInstructions').hide();
                     $main.find('.question').text(question.text).show();
+                    $main.addClass('question' + (index + 1));
 
+                    $options.removeClass('questions');
                     $options.empty();
 
                     question.answers.forEach(function (answer) {
