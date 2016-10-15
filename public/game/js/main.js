@@ -66,9 +66,10 @@ function updateMainScreen() {
                                     if (game.endOfGame !== undefined){
                                         $main.hide();
                                         $death.show();
-                                        $death.find('.score > .value').text(game.highScore);
-                                        $death.find('.causeOfDeath').text(game.causeOfDeath);
-                                        $death.find('h1 .value').text(game.probability);
+                                        $death.find('.age').text(game.age);
+                                        $death.find('.score > .value').text(game.endOfGame.highScore);
+                                        $death.find('.causeOfDeath').text(game.endOfGame.causeOfDeath);
+                                        $death.find('h1 .value').text(game.endOfGame.probability);
                                     }
                                     updateMainScreen();
                                 }
