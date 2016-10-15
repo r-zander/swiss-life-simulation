@@ -420,7 +420,7 @@
     },
     {
       "topics": [
-        "C"
+        "L"
       ],
       "preview": "Army",
       "text": "Are you going to the army?",
@@ -521,7 +521,7 @@
       "preview": "Leisure time",
       "text": "What do you do in your free time?",
       "ages": [
-        21, 25, 30, 35, 40, 50, 60, 70, 80,
+        18, 21, 25, 30, 35, 40, 50, 60, 70, 80,
         90],
       "answers": [
         {
@@ -587,7 +587,7 @@
       "preview": "Interpersonal stuff",
       "text": "What are you trying to find on a personal relations?",
       "ages": [
-        21, 25, 30, 35, 40, 50, 60, 70, 80,
+        18, 21, 25, 30, 35, 40, 50, 60, 70, 80,
         90],
       "answers": [
         {
