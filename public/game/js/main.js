@@ -48,6 +48,12 @@ function updateMainScreen() {
                     question.answers.forEach(function (answer) {
                         var link = $('<a href="#">' + answer.text + '</a>');
                         link.click(function () {
+                            $main.removeClass('question1');
+                            $main.removeClass('question2');
+                            $main.removeClass('question3');
+
+                            $main.find('.topicInstructions').show();
+                            $main.find('.question').hide();
 
                             $.ajax('/game/' + game.gameId + "/answers/" + answer.id, {
                                 success: function (data) {
