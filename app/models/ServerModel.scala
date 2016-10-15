@@ -30,7 +30,8 @@ case class HiddenAnswer(
                          satisfaction: Int,
                          money: Int,
                          probability: Double,
-                         preconditions: Option[Seq[PreCond]]
+                         preconditions: Option[Seq[PreCond]],
+                         riskFactors: Option[Seq[RiskFactor]]
                        ) {
   val id = ServerModel.generateId
   def external = Answer(id, text)
@@ -47,11 +48,20 @@ case class AnsweredQuestion(
   def satisfactionScore = answer.satisfaction * years
 }
 
+case class EndOfGame(
+                    causeOfDeath: String,
+                    probability: Double,
+                    highScore: Int
+                    ) {
+  def external = ClientEndOfGame(causeOfDeath, f"${probability*100}%.1f", highScore)
+}
+
 case class HiddenGameState(
                       gameId: String,
                       age: Int,
                       openQuestions: Seq[HiddenQuestion],
-                      answeredQuestions: Seq[AnsweredQuestion]
+                      answeredQuestions: Seq[AnsweredQuestion],
+                      endOfGame: Option[EndOfGame]
                     ) {
 
   lazy val money = if (age == 0) 0 else {
@@ -64,7 +74,13 @@ case class HiddenGameState(
     ServerModel.normalizeScore(score, 0, 10)
   }
 
-  def external = GameState(gameId, age, money, satisfaction, Nil)
+  def highScore = {
+    answeredQuestions.map(_.satisfactionScore).sum
+  }
+
+  def external = GameState(gameId, age, money, satisfaction, Nil, endOfGame.map(_.external))
+
+  def allRiskFactors = for (aq <- answeredQuestions; rfs <- aq.answer.riskFactors.toSeq; rf <- rfs) yield rf
 }
 
 case class PreCond(
@@ -72,8 +88,8 @@ case class PreCond(
                   )
 
 case class RiskFactor(
-                       text: String,
-                       riskValue: Double
+                       cause: String,
+                       value: Double
                      )
 
 object ServerModel {
@@ -90,6 +106,7 @@ object ServerModel {
 trait ServerModel {
 
   implicit val PreCondFormat = Json.format[PreCond]
+  implicit val EndOfGameFormat = Json.format[EndOfGame]
   implicit val RiskFactorFormat = Json.format[RiskFactor]
   implicit val HiddenAnswerFormat = Json.format[HiddenAnswer]
   implicit val HiddenQuestionFormat = Json.format[HiddenQuestion]
