@@ -2,8 +2,6 @@ package models
 package server
 
 import play.api.libs.json._
-import play.api.libs.json.Reads._
-import play.api.libs.functional.syntax._
 
 case class SimulatorConfig(topics: List[String],
                            ages: Seq[Int],
@@ -110,7 +108,12 @@ case class GameState(gameId: String,
     answeredQuestions.map(_.satisfactionScore).sum
   }
 
-  def external = client.GameState(gameId, age, money, satisfaction, Nil, endOfGame.map(_.external))
+  def determineName = answeredQuestions.find(_.question.preview.contains("Name")) match {
+    case None => None
+    case Some(aq) => Some(aq.answer.text)
+  }
+
+  def external = client.GameState(gameId, age, money, satisfaction, determineName, Nil, endOfGame.map(_.external))
 
   def allRiskFactors = for (aq <- answeredQuestions; rfs <- aq.answer.riskFactors.toSeq; rf <- rfs) yield rf
 }

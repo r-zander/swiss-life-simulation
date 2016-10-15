@@ -26,6 +26,7 @@ case class GameState(gameId: String,
                      age: Int,
                      money: Int,
                      satisfaction: Int,
+                     name: Option[String],
                      lastAnswers: Seq[AnsweredQuestion],
                      endOfGame: Option[EndOfGame])
 

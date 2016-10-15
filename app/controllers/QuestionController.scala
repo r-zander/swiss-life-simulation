@@ -1,6 +1,5 @@
 package controllers
 
-// swagger imports
 import com.wordnik.swagger.annotations._
 import modules.{Rand, Db}
 
