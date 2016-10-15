@@ -12,13 +12,11 @@ import models.{server, client}
 import javax.ws.rs.PathParam
 
 import scala.annotation.tailrec
-import scala.util.{Success, Failure, Random}
+import scala.util.{Success, Failure}
 
 @Api(value = "/questions", description = " Service to retrieve questions")
 class QuestionController extends Controller with client.ClientModel {
   val logger = Logger("application.QuestionController")
-
-	val RND = new Random
 
 	@ApiOperation(
 		nickname = "questions",
@@ -38,7 +36,10 @@ class QuestionController extends Controller with client.ClientModel {
   def filterAnswers(gameState: server.GameState, questions: Seq[server.Question]) = {
     val allRefs = gameState.answeredQuestions.flatMap(_.answer.flatRefs).toSet
     def filterQuestion(question: server.Question) = {
-      val answers = question.answers.filter(_ hasRefs allRefs)
+      val answers = question.answers.filter(_ checkPrecondition allRefs)
+      if (answers.isEmpty) {
+        sys.error(s"Keine Antworten für ${question} gefunden !")
+      }
       question.copy(answers = answers)
     }
     questions map filterQuestion

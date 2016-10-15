@@ -10,13 +10,11 @@ import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc._
 
-import scala.util.{Failure, Random, Success}
+import scala.util.{Failure, Success}
 
 @Api(value = "/answers", description = "Answers micro-services")
 class AnswerController extends Controller with client.ClientModel {
 	val logger = Logger("application.AnswerController")
-
-	val RND = new Random
 
 	@ApiOperation(
 		nickname = "answer",
@@ -55,8 +53,10 @@ class AnswerController extends Controller with client.ClientModel {
 	def splitQuestions(gameState: server.GameState, answer: server.Answer) = {
 		logger.info(s"Open Questions for Game ${gameState.gameId} : ${gameState.openQuestions}")
 		gameState.openQuestions.partition(_.answers contains answer) match {
-			case (answered, _) if answered.isEmpty => sys.error(s"Ungültige Antwort ${answer.id}")
-			case (Seq(answered), unanswered) => answered -> unanswered
+			case (answered, _) if answered.isEmpty =>
+				sys.error(s"Ungültige Antwort ${answer.id}")
+			case (Seq(answered), unanswered) =>
+				answered -> unanswered
 		}
 	}
 

@@ -20,8 +20,10 @@ class GameController extends Controller with ClientModel {
 		notes = "Returns a GameState",
 		httpMethod = "GET")
 	def startNewGame() = Action {
-		val gameState = Db.newGame
-		Ok(Json.toJson(gameState.external))
+		val gameState = startGame
+		Ok(Json.toJson(gameState))
 	}
+
+	def startGame = Db.newGame.external
 
 }

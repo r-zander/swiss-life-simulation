@@ -32,13 +32,16 @@ case class Answer(refs: Option[Seq[String]],
                   riskFactors: Option[Seq[RiskFactor]]) {
   val id = ServerModel.generateId
 
+  override def toString = s"Answer(#$id,$refs,$text,$preconditions,$riskFactors)"
+
   def external = client.Answer(id, text)
 
   lazy val flatRefs = refs.toSeq.flatten
+  lazy val flatPreConds = preconditions.toSeq.flatten
 
-  def hasRefs(allRefs: Set[String]) = {
-    if (flatRefs.isEmpty) true
-    else flatRefs exists allRefs
+  def checkPrecondition(allRefs: Set[String]) = {
+    if (flatPreConds.isEmpty) true
+    else flatPreConds.map(_.previousAnswer) exists allRefs
   }
 }
 
@@ -78,8 +81,9 @@ case class GameState(gameId: String,
   lazy val satisfaction = {
     if (accumulatedYears == 0) 5
     else {
-      val score = answeredQuestions.map(_.satisfactionScore).sum / accumulatedYears.toDouble
-      ServerModel.normalizeScore(score, 0, 10)
+      // Frontend hat Wertebereich 0-6
+      val score = answeredQuestions.map(_.satisfactionScore).sum * 11.0 / (7.0 * accumulatedYears.toDouble)
+      ServerModel.normalizeScore(score, 0, 6)
     }
   }
 
