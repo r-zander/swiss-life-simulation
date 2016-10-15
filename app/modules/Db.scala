@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.{Paths, Files}
 import scala.collection.JavaConversions._
 
-import models._
+import models.server._
 import play.api.libs.json.Json
 
 import scala.util._
@@ -12,8 +12,8 @@ import scala.util._
 object Db extends ServerModel {
 
 
-  private val _initialGameState = HiddenGameState(null, 0, Nil, Nil, None)
-  private val _gameState = collection.concurrent.TrieMap.empty[String, HiddenGameState]
+  private val _initialGameState = GameState(null, 0, Nil, Nil, None)
+  private val _gameState = collection.concurrent.TrieMap.empty[String, GameState]
   private val _config = readConfig
 
   def config = _config
@@ -39,7 +39,7 @@ object Db extends ServerModel {
 
   def nextAge(age: Int) = config.ages.dropWhile(_ <= age).headOption.getOrElse(age + 10)
 
-  def updateGameState(newGameState: HiddenGameState) = {
+  def updateGameState(newGameState: GameState) = {
     _gameState(newGameState.gameId) = newGameState
   }
 

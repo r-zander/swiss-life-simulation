@@ -4,7 +4,7 @@ package controllers
 import javax.ws.rs.PathParam
 
 import com.wordnik.swagger.annotations._
-import models._
+import models.client._
 import modules.Db
 import play.api.Logger
 import play.api.libs.json._
