@@ -687,6 +687,46 @@
           ]
         }
       ]
+    },
+    {
+      "topics": [
+        "C"
+      ],
+      "preview": "Career",
+      "text": "What are you doing with your remaining time?",
+      "ages": [
+        70,80,90
+      ],
+      "answers": [
+        {
+          "text": "I want to do further education",
+          "satisfaction": 5,
+          "money": 4,
+          "probability": 0.3,
+          "preconditions": [
+            {
+              "previousAnswer": "employed"
+            }
+          ]
+        },
+        {
+          "text": "Travel",
+          "satisfaction": 6,
+          "money": 4,
+          "probability": 0.5,
+          "preconditions": [
+            {
+              "previousAnswer": "employed"
+            }
+          ]
+        },
+        {
+          "text": "Chilling at home",
+          "satisfaction": 3,
+          "money": 1,
+          "probability": 0.2
+        }
+      ]
     }
 
   ]
