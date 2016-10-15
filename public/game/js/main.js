@@ -6,6 +6,8 @@ var $main = $('#main');
 var $death = $('#death');
 
 function startGame(event) {
+    $death.hide();
+
     $.ajax("/game/start", {
         success: function (data) {
             game = data;
@@ -25,6 +27,9 @@ $('#splash').click(startGame);
 $death.children('.reincarnate').click(startGame);
 
 function updateMainScreen() {
+    if (game.name !== undefined) {
+        $main.find('.name').text(game.name);
+    }
     $main.find('.age > .value').text(game.age);
     $main.find('.satisfaction').attr('src', 'img/satisfaction/' + game.satisfaction + '.svg');
     $main.find('.money').attr('src', 'img/money/' + game.money + '.svg');
