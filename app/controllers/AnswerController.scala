@@ -1,6 +1,5 @@
 package controllers
 
-// swagger imports
 import javax.ws.rs.PathParam
 import com.wordnik.swagger.annotations._
 
@@ -40,7 +39,7 @@ class AnswerController extends Controller with client.ClientModel {
 	}
 
 	def summarize(pairedAnswers: (server.Question, server.Answer)): client.AnsweredQuestion = {
-    client.AnsweredQuestion(pairedAnswers._1.text, pairedAnswers._2.text)
+    client.AnsweredQuestion(pairedAnswers._1.preview.getOrElse(pairedAnswers._1.text), pairedAnswers._2.text)
 	}
 
 	def validateAnswer(gameId: String, answerId: String) = Db.gameState(gameId) flatMap { gameState =>
