@@ -21,8 +21,9 @@ object Rand {
         if (sample <= w) r
         else rec(sample - w, rs)
     }
-    if (available.isEmpty) sys.error(s"Keine $name gefunden !")
-    else {
+    if (available.isEmpty) {
+      sys.error(s"Keine $name gefunden !")
+    } else {
       val universe = available.map(weight).sum
       rec(RND.nextDouble() * universe, available.toList)
     }

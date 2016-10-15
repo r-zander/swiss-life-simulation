@@ -4,37 +4,33 @@ package controllers
 import javax.ws.rs.PathParam
 import com.wordnik.swagger.annotations._
 
-import models._
+import models.{client, server}
 import modules.{Rand, Db}
 import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc._
 
-import scala.util.{Failure, Random, Success}
+import scala.util.{Failure, Success}
 
-@Api(value = "/game/{gameId}/answers", description = "Answers micro-services")
-class AnswerController extends Controller with ClientModel {
+@Api(value = "/answers", description = "Answers micro-services")
+class AnswerController extends Controller with client.ClientModel {
 	val logger = Logger("application.AnswerController")
 
-	val RND = new Random
-
 	@ApiOperation(
-		nickname = "submitAnswer",
-		value = "Get the next questions",
-		notes = "Returns 3 questions",
+		nickname = "answer",
+		value = "Submits an user answer and obtains the result",
+		notes = "Simulates the next turn and returns the new game state. If ",
 		httpMethod = "GET")
-	def submitAnswer(
-										@ApiParam(value = "gameId of the game to play") @PathParam("gameId") gameId: String,
-										@ApiParam(value = "answerId of the user answer") @PathParam("answerId") answerId: String
+	def submitAnswer( @ApiParam(value = "gameId of the game being played") @PathParam("gameId") gameId: String,
+										@ApiParam(value = "answerId of the answer given by the user") @PathParam("answerId") answerId: String
 									) = Action {
 		writeAnswer(gameId, answerId) match {
 			case Failure(ex) =>
 				logger.error(s"SubmitAnswer($gameId,$answerId) failed.", ex)
-				NotFound(Json.toJson(ClientError(ex.toString)))
+				NotFound(Json.toJson(client.ClientError(ex.toString)))
 			case Success(questions) => Ok(Json.toJson(questions))
 		}
 	}
-
 
 	def writeAnswer(gameId: String, answerId: String) = validateAnswer(gameId, answerId) map {
 		case (gameState, answer, answeredQuestion, unansweredQuestions) =>
@@ -43,8 +39,8 @@ class AnswerController extends Controller with ClientModel {
 			newGameState.external.copy(lastAnswers = pairedAnswers map summarize)
 	}
 
-	def summarize(pairedAnswers: (HiddenQuestion, HiddenAnswer)): ClientAnsweredQuestion = {
-		ClientAnsweredQuestion(pairedAnswers._1.text, pairedAnswers._2.text)
+	def summarize(pairedAnswers: (server.Question, server.Answer)): client.AnsweredQuestion = {
+    client.AnsweredQuestion(pairedAnswers._1.text, pairedAnswers._2.text)
 	}
 
 	def validateAnswer(gameId: String, answerId: String) = Db.gameState(gameId) flatMap { gameState =>
@@ -54,28 +50,30 @@ class AnswerController extends Controller with ClientModel {
 		}
 	}
 
-	def splitQuestions(gameState: HiddenGameState, answer: HiddenAnswer) = {
+	def splitQuestions(gameState: server.GameState, answer: server.Answer) = {
 		logger.info(s"Open Questions for Game ${gameState.gameId} : ${gameState.openQuestions}")
 		gameState.openQuestions.partition(_.answers contains answer) match {
-			case (answered, _) if answered.isEmpty => sys.error(s"Ungültige Antwort ${answer.id}")
-			case (Seq(answered), unanswered) => answered -> unanswered
+			case (answered, _) if answered.isEmpty =>
+				sys.error(s"Ungültige Antwort ${answer.id}")
+			case (Seq(answered), unanswered) =>
+				answered -> unanswered
 		}
 	}
 
-	def autoAnswer(gameState: HiddenGameState, questions: Seq[HiddenQuestion]): Seq[(HiddenQuestion, HiddenAnswer)] = {
+	def autoAnswer(gameState: server.GameState, questions: Seq[server.Question]): Seq[(server.Question, server.Answer)] = {
 		questions map { autoAnswer(gameState, _) }
 	}
 
-	def autoAnswer(gameState: HiddenGameState, question: HiddenQuestion): (HiddenQuestion, HiddenAnswer) = {
-		def weight(answer: HiddenAnswer) = answer.probability
+	def autoAnswer(gameState: server.GameState, question: server.Question): (server.Question, server.Answer) = {
+		def weight(answer: server.Answer) = answer.probability
 		val answer = Rand.selectRandom(question.answers, weight, s"Answer")
 		question -> answer
 	}
 
-	def updateGame(gameState: HiddenGameState, pairedAnswers: Seq[(HiddenQuestion, HiddenAnswer)]) = {
+	def updateGame(gameState: server.GameState, pairedAnswers: Seq[(server.Question, server.Answer)]) = {
 		val nextAge = Db.nextAge(gameState.age)
 		val answers = pairedAnswers.map { case (q,a) =>
-			AnsweredQuestion(gameState.age, nextAge, q, a)
+      server.AnsweredQuestion(gameState.age, nextAge, q, a)
 		}
 		val nextGameState = checkEndOfGame(gameState.copy(
 			age = nextAge,
@@ -86,15 +84,15 @@ class AnswerController extends Controller with ClientModel {
 		nextGameState
 	}
 
-	def checkEndOfGame(gameState: HiddenGameState): HiddenGameState = {
-		def weight(riskFactor: RiskFactor) = riskFactor.value
+	def checkEndOfGame(gameState: server.GameState): server.GameState = {
+		def weight(riskFactor: server.RiskFactor) = riskFactor.value
 		val riskFactors = gameState.allRiskFactors.toList
 		val psum = riskFactors.map(weight).sum
-		val notDead = RiskFactor("DUMMY", math.max(0.5, 1 - psum))
+		val notDead = server.RiskFactor("DUMMY", math.max(0.5, 1 - psum))
 		Rand.selectRandom((notDead :: riskFactors).reverse, weight, s"RiskFactor") match {
 			case rf if rf == notDead => gameState
-			case RiskFactor(cause, prob) =>
-				val endOfGame = EndOfGame(cause, prob, gameState.highScore)
+			case server.RiskFactor(cause, prob) =>
+				val endOfGame = server.EndOfGame(cause, prob, gameState.highScore)
 				gameState.copy(endOfGame = Some(endOfGame))
 		}
 	}
