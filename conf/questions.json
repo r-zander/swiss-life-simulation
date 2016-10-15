@@ -57,11 +57,13 @@
       "ages" : [ 0 ],
       "answers" : [
         {
+          "refs" : [ "IstFrau" ],
           "text" : "Female",
           "satisfaction" : 6,
           "money" : 4,
           "probability" : 0.45
         }, {
+          "refs" : [ "IstMann" ],
           "text" : "Male",
           "satisfaction" : 4,
           "money" : 6,
@@ -73,10 +75,14 @@
             }
           ]
         }, {
+          "refs" : [ "IstMann", "IstFrau" ],
           "text" : "Undecided",
           "satisfaction" : 3,
           "money" : 8,
-          "probability" : 0.10
+          "probability" : 0.10,
+          "preconditions" : [ {
+            "previousAnswer" : "IstFrau"
+          } ]
         }
       ]
     }

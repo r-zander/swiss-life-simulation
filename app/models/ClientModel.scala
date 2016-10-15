@@ -8,6 +8,7 @@ case class ClientError(error: String)
 
 case class Question(
                      topic: String,
+                     preview: Option[String],
                      text: String,
                      ages: Seq[Int],
                      answers: Seq[Answer]
