@@ -62,23 +62,22 @@ class QuestionController extends Controller with ClientModel {
 		val allQuestions = Db.config.questions.filter{
 			_ hasAge gameState.age
 		}
-		selectQuestions(Db.config.topics, Nil, allQuestions) map { questions =>
-      val newGameState = gameState.copy(openQuestions = questions)
-      Db.updateGameState(newGameState)
-      questions
-    }
-    questions
+		val questions = selectQuestions(Db.config.topics, Nil, allQuestions)
+    val newGameState = gameState.copy(openQuestions = questions.map(_._2))
+    Db.updateGameState(newGameState)
+    questions map { case (t, q) => q.external(t) }
 	}
 
 	@tailrec
-	private def selectQuestions(topics: List[String], selected: Seq[Question], available: Seq[HiddenQuestion]): Seq[Question] = topics match {
-		case Nil => selected
-		case t :: ts =>
-			val questions = available.filter(_.topics contains t)
-			val qInt = Rand.selectRandom(questions, s"Question für Topic '$t'")
-			val qExt = qInt.external(t)
-			selectQuestions(ts, selected :+ qExt, available.filterNot(_ == qInt))
-	}
+	private def selectQuestions(topics: List[String], selected: Seq[(String, HiddenQuestion)], available: Seq[HiddenQuestion]): Seq[(String, HiddenQuestion)] = {
+    topics match {
+      case Nil => selected
+      case t :: ts =>
+        val questions = available.filter(_.topics contains t)
+        val q = Rand.selectRandom(questions, s"Question für Topic '$t'")
+        selectQuestions(ts, selected :+ (t -> q), available.filterNot(_ == q))
+    }
+  }
 
 
 	/*
