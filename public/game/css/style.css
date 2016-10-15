@@ -281,7 +281,8 @@ main {
   color: #00b4a0;
 }
 #main .options > li {
-  margin-top: 0.5em;
+  margin-top: 0.7em;
+  line-height: 1.2;
 }
 #main .options > li > a {
   text-decoration: none;
