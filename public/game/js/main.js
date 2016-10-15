@@ -4,9 +4,11 @@ var game;
 var questions;
 var $main = $('#main');
 var $death = $('#death');
+var $meanwhile = $('#meanwhile');
 
 function startGame(event) {
     $death.hide();
+    $meanwhile.hide();
 
     $.ajax("/game/start", {
         success: function (data) {
@@ -26,6 +28,11 @@ $('#splash').click(startGame);
 
 $death.children('.reincarnate').click(startGame);
 
+$meanwhile.click(function () {
+    $meanwhile.hide();
+    updateMainScreen();
+});
+
 function updateMainScreen() {
     if (game.name !== undefined) {
         $main.find('.name').text(game.name);
@@ -43,6 +50,7 @@ function updateMainScreen() {
             var $options = $main.find('.options');
             $options.addClass('questions');
             $options.empty();
+            $options.show();
 
             questions.forEach(function (question, index) {
                 var link = $('<a href="#">' + question.preview + '</a>');
@@ -68,7 +76,7 @@ function updateMainScreen() {
                                 success: function (data) {
                                     game = data;
 
-                                    if (game.endOfGame !== undefined){
+                                    if (game.endOfGame !== undefined) {
                                         $main.hide();
                                         $death.show();
                                         $death.find('.age').text(game.age);
@@ -76,7 +84,19 @@ function updateMainScreen() {
                                         $death.find('.causeOfDeath').text(game.endOfGame.causeOfDeath);
                                         $death.find('h1 .value').text(game.endOfGame.probability);
                                     }
-                                    updateMainScreen();
+
+                                    var otherAreas = $meanwhile.children('.otherAreas');
+                                    otherAreas.empty();
+
+                                    game.lastAnswers.forEach(function (answeredQuestion) {
+                                        if (answeredQuestion.question !== question.preview) {
+                                            otherAreas.append('<p>' + answeredQuestion.question + ": " + answeredQuestion.answer + '</p>');
+                                        }
+                                    });
+
+                                    $main.find('.topicInstructions').hide();
+                                    $meanwhile.show();
+                                    $options.hide();
                                 }
                             });
                         });
