@@ -1,0 +1,71 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Swiss Life Simulation</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+<main id="start">
+    <a href="#" id="splash">
+        <img src="img/coat_of_arms_of_Switzerland.svg"/>
+        <h1>
+            Swiss<br/>
+            Life<br/>
+            Simulator
+        </h1>
+        <h2>Spoiler: You're gonna die!</h2>
+    </a>
+</main>
+
+<main id="main" style="display: none">
+    <h1 class="name">&lt;Name&gt;</h1>
+    <h2 class="age">Age: <span class="value">21</span></h2>
+
+    <div class="left">
+        <img src="img/head.jpg" />
+        <img src="img/body.jpg" />
+        <img src="img/money.jpg" />
+    </div>
+    <div class="right">
+        <p class="topicInstructions">
+            Choose an area of life you'd like to control:
+        </p>
+        <p class="question" style="display: none">
+        </p>
+        <ul class="options">
+            <li><a href="death.html"><img scr="" />Career</a></li>
+            <li><a href="death.html"><img scr="" />Recreation</a></li>
+            <li><a href="death.html"><img scr="" />Family</a></li>
+        </ul>
+    </div>
+</main>
+
+<main id="death" style="display: none">
+    <h1>You<br/>Died</h1>
+    <h2>8888
+        <small>Score</small>
+    </h2>
+    <a href="main.html" class="reincarnate">Respawn</a>
+</main>
+
+<div id="phoneMockup">
+    <img src="img/nexus4_portrait.png"/>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.1.1.min.js"><\/script>')</script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+@dpScale: 1;
+@baselineGrid: (8px * @dpScale);
+@gridBase: @baselineGrid;
+@gridPadding: (2 * @baselineGrid);
+@gridDistance: (4 * @baselineGrid);
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: inherit;
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+}
+
+@import "splashScreen";
+@import "mainScreen";
+@import "deathScreen";
+
+@phoneHorizontalResolution: 768;
+@phoneVerticalResolution: 1280;
+@phoneAspectRatio: (@phoneHorizontalResolution / @phoneVerticalResolution);
+@phoneWidth: 2.70in;
+@phoneHeight: 5.27in;
+@phoneDisplayDiagonal: 4.7in;
+
+@displayHeight: (@phoneDisplayDiagonal * @phoneVerticalResolution /
+  sqrt(pow(@phoneHorizontalResolution, 2) + pow(@phoneVerticalResolution, 2)));
+@displayWidth: @phoneAspectRatio * @displayHeight;
+
+@topOffset: 0.59in; //((@phoneHeight - @displayHeight) * 0.47);
+
+#phoneMockup {
+    display: none;
+}
+
+/*
+ * Mock-Up Phone on computer monitors
+ */
+@media (max-resolution: 120dpi) {
+    body {
+        height: auto;
+        min-height: 100%;
+        overflow: hidden;
+    }
+
+    main {
+        width: @displayWidth;
+        max-width: @displayWidth;
+        height: (@displayHeight + 0.05in);
+        max-height: (@displayHeight + 0.05in);
+
+        margin: @topOffset auto 0;
+        position: relative;
+        top: @gridDistance;
+    }
+
+    #phoneMockup {
+        display: block;
+
+        width: @phoneWidth;
+        height: @phoneHeight;
+
+        position: absolute;
+        top: @gridDistance;
+        // margin-top: @topOffset;
+        left: 50%;
+        // margin-left: ((@phoneWidth - @displayWidth) / -2);
+        margin-left: (@phoneWidth / -2);
+
+        pointer-events: none;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .feedbackBox, #appBar {
+        top: @gridDistance;
+        width: @displayWidth;
+        margin: @topOffset auto 0;
+    }
+
+    .charakter table.eigenschaften .value {
+        padding-left: 0.7em;
+    }
+
+    #appBar h1 {
+        font-size: 15px;
+    }
+}
