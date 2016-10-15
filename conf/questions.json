@@ -1,0 +1,68 @@
+{
+  "topics" : [ "C", "L", "F" ],
+  "ages" : [ 0, 5, 10, 15, 18, 21, 25, 30, 35, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150 ],
+  "questions" : [
+    {
+      "topics" : [ "C" ],
+      "text" : "What is your home canton ?",
+      "ages" : [ 0 ],
+      "answers" : [
+        {
+          "text" : "Berne",
+          "satisfaction" : 5,
+          "money" : 1,
+          "probability" : 0.35
+        }, {
+          "text" : "Zurich",
+          "satisfaction" : 4,
+          "money" : 3,
+          "probability" : 0.45
+        }, {
+          "text" : "Ticino",
+          "satisfaction" : 7,
+          "money" : 0,
+          "probability" : 0.20
+        }
+      ]
+    }, {
+      "topics" : [ "F" ],
+      "text" : "Who are your parents ?",
+      "ages" : [ 0 ],
+      "answers" : [
+        {
+          "text" : "Both Swiss, of course !",
+          "satisfaction" : 3,
+          "money" : 4,
+          "probability" : 0.50
+        }, {
+          "text" : "Swiss dad, Spanish mom",
+          "satisfaction" : 5,
+          "money" : 2,
+          "probability" : 0.20
+        }, {
+          "text" : "Australian dad, Norwegian mom",
+          "satisfaction" : 2,
+          "money" : 5,
+          "probability" : 0.10
+        }, {
+          "text" : "Both Italian !",
+          "satisfaction" : 6,
+          "money" : 0,
+          "probability" : 0.20
+        }
+      ]
+    }, {
+      "topics" : [ "C" ],
+      "text" : "In welchen Kanton bist du geboren ?",
+      "ages" : [ 0 ],
+      "answers" : [
+        {
+          "text" : "Bern",
+          "satisfaction" : 5,
+          "money" : 0,
+          "probability" : 0.34
+        }
+      ]
+    }
+  ]
+}
