@@ -9,8 +9,8 @@ GET  	/swagger  					        @controllers.Application.swagger
 GET     /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)
 
 GET 	/api-docs/game   			        controllers.ApiHelpController.getResource(path="/game")
-GET 	/api-docs/questions			        controllers.ApiHelpController.getResource(path="/game/{gameid}/questions")
-GET 	/api-docs/answers  			        controllers.ApiHelpController.getResource(path="/game/{gameId}/answers")
+GET 	/api-docs/questions			        controllers.ApiHelpController.getResource(path="/questions")
+GET 	/api-docs/answers  			        controllers.ApiHelpController.getResource(path="/answers")
 GET 	/game/start            		        @controllers.GameController.startNewGame()
 GET 	/game/:gameId/questions		        @controllers.QuestionController.getQuestions(gameId: String)
 GET 	/game/:gameId/answers/:answerId		@controllers.AnswerController.submitAnswer(gameId: String, answerId: String)

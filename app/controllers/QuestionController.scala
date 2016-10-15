@@ -8,36 +8,36 @@ import play.api._
 import play.api.mvc._
 import play.api.libs.json._
 
-import models._
+import models.{server, client}
 import javax.ws.rs.PathParam
 
 import scala.annotation.tailrec
 import scala.util.{Success, Failure, Random}
 
-@Api(value = "/game/{gameid}/questions", description = "Questions micro-service")
-class QuestionController extends Controller with ClientModel {
+@Api(value = "/questions", description = " Service to retrieve questions")
+class QuestionController extends Controller with client.ClientModel {
   val logger = Logger("application.QuestionController")
 
 	val RND = new Random
 
 	@ApiOperation(
-		nickname = "getQuestions",
-		value = "Get the next questions",
-		notes = "Returns 3 questions",
+		nickname = "questions",
+		value = "Get the next questions in the game",
+		notes = "Returns 3 questions, one for each topic (career, leisure, family)",
 		httpMethod = "GET")
-	def getQuestions(@ApiParam(value = "gameId of the game to fetch") @PathParam("gameId") gameId: String) = Action {
+	def getQuestions(@ApiParam(value = "gameId of the game being played") @PathParam("gameId") gameId: String) = Action {
 		getQuestionsForGame(gameId) match {
 			case Failure(ex) =>
         logger.error(s"GetQuestions($gameId) failed.", ex)
-        NotFound(Json.toJson(ClientError(ex.toString)))
+        NotFound(Json.toJson(client.ClientError(ex.toString)))
 			case Success(questions) =>
         Ok(Json.toJson(questions))
 		}
 	}
 
-  def filterAnswers(gameState: HiddenGameState, questions: Seq[HiddenQuestion]) = {
+  def filterAnswers(gameState: server.GameState, questions: Seq[server.Question]) = {
     val allRefs = gameState.answeredQuestions.flatMap(_.answer.flatRefs).toSet
-    def filterQuestion(question: HiddenQuestion) = {
+    def filterQuestion(question: server.Question) = {
       val answers = question.answers.filter(_ hasRefs allRefs)
       question.copy(answers = answers)
     }
@@ -56,7 +56,9 @@ class QuestionController extends Controller with ClientModel {
 	}
 
 	@tailrec
-	private def selectQuestions(topics: List[String], selected: Seq[(String, HiddenQuestion)], available: Seq[HiddenQuestion]): Seq[(String, HiddenQuestion)] = {
+	private def selectQuestions(topics: List[String],
+                              selected: Seq[(String, server.Question)],
+                              available: Seq[server.Question]): Seq[(String, server.Question)] = {
     topics match {
       case Nil => selected
       case t :: ts =>
