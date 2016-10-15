@@ -287,6 +287,9 @@ main {
 #main .options > li > a {
   text-decoration: none;
 }
+#meanwhile {
+  text-decoration: none;
+}
 #death {
   padding: 0.1in;
 }
@@ -301,9 +304,6 @@ main {
   width: 100%;
   text-align: center;
   font-size: 0.4in;
-}
-#death h2 > small {
-  display: block;
 }
 #death > .reincarnate {
   display: block;
