@@ -1,0 +1,19 @@
+#death {
+  padding: 0.1in;
+}
+#death h1 {
+  font-size: 0.45in;
+  margin-top: 1em;
+}
+#death h2 {
+  width: 100%;
+  text-align: center;
+  font-size: 0.45in;
+}
+#death h2 > small {
+  display: block;
+}
+#death > .reincarnate {
+  display: block;
+  text-align: center;
+}
