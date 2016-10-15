@@ -116,7 +116,7 @@
           "probability": 0.45,
           "riskFactors": [
             {
-              "cause": "Männer leben kürzer, sorry !",
+              "cause": "Males die earlier",
               "value": 0.01
             }
           ]
@@ -178,7 +178,7 @@
         },
         {
           "text": "Hans-Ludwig",
-          "satisfaction": 4,
+          "satisfaction": 2,
           "money": 5,
           "probability": 0.3,
           "preconditions": [
