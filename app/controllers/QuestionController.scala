@@ -35,14 +35,24 @@ class QuestionController extends Controller with ClientModel {
 		}
 	}
 
-	def getQuestionsForGame(gameId: String) = Db.gameState(gameId) map { gameState =>
+  def filterAnswers(gameState: HiddenGameState, questions: Seq[HiddenQuestion]) = {
+    val allRefs = gameState.answeredQuestions.flatMap(_.answer.flatRefs).toSet
+    def filterQuestion(question: HiddenQuestion) = {
+      val answers = question.answers.filter(_ hasRefs allRefs)
+      question.copy(answers = answers)
+    }
+    questions map filterQuestion
+  }
+
+  def getQuestionsForGame(gameId: String) = Db.gameState(gameId) map { gameState =>
 		val allQuestions = Db.config.questions.filter{
 			_ hasAge gameState.age
 		}
-		val questions = selectQuestions(Db.config.topics, Nil, allQuestions)
-    val newGameState = gameState.copy(openQuestions = questions.map(_._2))
+		val (topics, questions) = selectQuestions(Db.config.topics, Nil, allQuestions).unzip
+    val filteredQuestions = filterAnswers(gameState, questions)
+    val newGameState = gameState.copy(openQuestions = filteredQuestions)
     Db.updateGameState(newGameState)
-    questions map { case (t, q) => q.external(t) }
+    (topics zip filteredQuestions) map { case (t, q) => q.external(t) }
 	}
 
 	@tailrec

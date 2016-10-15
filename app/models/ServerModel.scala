@@ -33,6 +33,13 @@ case class HiddenAnswer(refs: Option[Seq[String]],
   val id = ServerModel.generateId
 
   def external = Answer(id, text)
+
+  lazy val flatRefs = refs.toSeq.flatten
+
+  def hasRefs(allRefs: Set[String]) = {
+    if (flatRefs.isEmpty) true
+    else flatRefs exists allRefs
+  }
 }
 
 case class AnsweredQuestion(ageLow: Int,
