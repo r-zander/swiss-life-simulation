@@ -22,6 +22,8 @@ $('#splash').click(function (event) {
 
 function updateMainScreen() {
     $main.find('.age > .value').text(game.age);
+    $main.find('.satisfaction').attr('src', 'img/satisfaction/' + game.satisfaction + '.svg');
+    $main.find('.money').attr('src', 'img/money/' + game.money + '.svg');
 
     $.ajax('/game/' + game.gameId + "/questions", {
         success: function (data) {
