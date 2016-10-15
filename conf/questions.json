@@ -117,7 +117,7 @@
           "riskFactors": [
             {
               "cause": "Männer leben kürzer, sorry !",
-              "value": 0.1
+              "value": 0.01
             }
           ]
         },
@@ -259,7 +259,7 @@
           "riskFactors": [
             {
               "cause": "You get eaten",
-              "value": 0.1
+              "value": 0.05
             }
           ]
         },
@@ -389,7 +389,7 @@
           "riskFactors": [
             {
               "cause": "Dying of heart attack",
-              "value": 0.2
+              "value": 0.1
             }
           ]
         },
@@ -412,7 +412,7 @@
           "riskFactors": [
             {
               "cause": "Suicide",
-              "value": 0.1
+              "value": 0.05
             }
           ]
         }
@@ -458,7 +458,7 @@
           "riskFactors": [
             {
               "cause": "Accidentally getting shot",
-              "value": 0.1
+              "value": 0.05
             }
           ]
         }
@@ -532,7 +532,7 @@
           "riskFactors": [
             {
               "cause": "Drank yourself to death",
-              "value": 0.1
+              "value": 0.05
             }
           ]
         },
@@ -548,8 +548,8 @@
           ],
           "riskFactors": [
             {
-              "cause": "Killed by a Thai prostitute",
-              "value": 0.1
+              "cause": "Killed by a Thai prostitute for drugs",
+              "value": 0.05
             }
           ]
         },
@@ -561,7 +561,7 @@
           "riskFactors": [
             {
               "cause": "Suicide",
-              "value": 0.1
+              "value": 0.05
             }
           ]
         },
@@ -599,7 +599,7 @@
           "riskFactors": [
             {
               "cause": "You cheated on your partner and he/she killed you",
-              "value": 0.1
+              "value": 0.05
             }
           ]
         },
@@ -622,7 +622,7 @@
           "riskFactors": [
             {
               "cause": "Suicide",
-              "value": 0.1
+              "value": 0.05
             }
           ]
         },
@@ -644,13 +644,13 @@
         21, 25, 30, 35, 40, 50, 60, 70, 80],
       "answers": [
         {
-          "text": "Caffeine",
+          "text": "Cigarettes",
           "satisfaction": 5,
           "money": 7,
           "probability": 0.23,
           "riskFactors": [
             {
-              "cause": "Heart attack",
+              "cause": "Lung cancer",
               "value": 0.1
             }
           ]
@@ -659,7 +659,13 @@
           "text": "Alcohol",
           "satisfaction": 8,
           "money": 4,
-          "probability": 0.6
+          "probability": 0.6,
+          "riskFactors": [
+            {
+              "cause": "Car crash",
+              "value": 0.1
+            }
+          ]
 
         },
         {
@@ -670,7 +676,7 @@
           "riskFactors": [
             {
               "cause": "Overdose",
-              "value": 0.1
+              "value": 0.05
             }
           ]
         },
@@ -682,7 +688,7 @@
           "riskFactors": [
             {
               "cause": "Crash",
-              "value": 0.4
+              "value": 0.1
             }
           ]
         }
