@@ -152,67 +152,67 @@
       "answers": [
         {
           "text": "Anna",
-          "satisfaction": "7",
-          "money": "7",
+          "satisfaction": 7,
+          "money": 7,
           "probability": 0.3,
           "preconditions": [
             {
-              "PreviousAnswer": "IstFrau"
+              "previousAnswer": "IstFrau"
             }
           ]
         },
         {
           "text": "Frederike",
-          "satisfaction": "4",
-          "money": "4",
+          "satisfaction": 4,
+          "money": 4,
           "probability": 0.3,
           "preconditions": [
             {
-              "PreviousAnswer": "IstFrau"
+              "previousAnswer": "IstFrau"
             }
           ]
         },
         {
           "text": "Laura",
-          "satisfaction": "9",
-          "money": "8",
+          "satisfaction": 9,
+          "money": 8,
           "probability": 0.3,
           "preconditions": [
             {
-              "PreviousAnswer": "IstFrau"
+              "previousAnswer": "IstFrau"
             }
           ]
         },
         {
           "text": "Hans-Ludwig",
-          "satisfaction": "4",
-          "money": "5",
+          "satisfaction": 4,
+          "money": 5,
           "probability": 0.3,
           "preconditions": [
             {
-              "PreviousAnswer": "IstMann"
+              "previousAnswer": "IstMann"
             }
           ]
         },
         {
           "text": "Noah",
-          "satisfaction": "5",
-          "money": "7",
+          "satisfaction": 5,
+          "money": 7,
           "probability": 0.3,
           "preconditions": [
             {
-              "PreviousAnswer": "IstMann"
+              "previousAnswer": "IstMann"
             }
           ]
         },
         {
           "text": "Robert",
-          "satisfaction": "6",
-          "money": "7",
+          "satisfaction": 6,
+          "money": 7,
           "probability": 0.3,
           "preconditions": [
             {
-              "PreviousAnswer": "IstMann"
+              "previousAnswer": "IstMann"
             }
           ]
         }
@@ -230,20 +230,20 @@
       "answers": [
         {
           "text": "None :-(",
-          "satisfaction": "2",
-          "money": "5",
+          "satisfaction": 2,
+          "money": 5,
           "probability": 0.4
         },
         {
           "text": "One",
-          "satisfaction": "6",
-          "money": "5",
+          "satisfaction": 6,
+          "money": 5,
           "probability": 0.3
         },
         {
           "text": "Two or more",
-          "satisfaction": "9",
-          "money": "5",
+          "satisfaction": 9,
+          "money": 5,
           "probability": 0.3
         }
       ]
@@ -260,8 +260,8 @@
       "answers": [
         {
           "text": "Yes!",
-          "satisfaction": "10",
-          "money": "4",
+          "satisfaction": 10,
+          "money": 4,
           "probability": 0.5,
           "riskFactors": [
             {
@@ -272,8 +272,8 @@
         },
         {
           "text": "No",
-          "satisfaction": "5",
-          "money": "5",
+          "satisfaction": 5,
+          "money": 5,
           "probability": 0.5
         }
       ]
@@ -325,21 +325,21 @@
       ],
       "answers": [
         {
-          "refs": "sekB",
+          "refs": [ "sekB" ],
           "text": "Sek B and a baker's apprenticeship",
           "satisfaction": 5,
           "money": 4,
           "probability": 0.3
         },
         {
-          "refs": "sekA",
+          "refs": [ "sekA" ],
           "text": "Sek A and an apprenticeship in a bank",
           "satisfaction": 6,
           "money": 5,
           "probability": 0.3
         },
         {
-          "refs": "gymnasium",
+          "refs": [ "gymnasium" ],
           "text": "Gymnasium",
           "satisfaction": 4,
           "money": 2,
@@ -389,7 +389,7 @@
       "answers": [
         {
           "text": "Yes, working fulltime",
-          "refs": "employed",
+          "refs": [ "employed" ],
           "satisfaction": 4,
           "money": 9,
           "probability": 0.3,
@@ -407,7 +407,7 @@
           "probability": 0.2,
           "preconditions": [
             {
-              "PreviousAnswer": "gymnasium"
+              "previousAnswer": "gymnasium"
             }
           ]
         },
@@ -448,7 +448,7 @@
           "probability": 0.9,
           "preconditions": [
             {
-              "PreviousAnswer": "IstFrau"
+              "previousAnswer": "IstFrau"
             }
           ]
         },
@@ -459,7 +459,7 @@
           "probability": 0.2,
           "preconditions": [
             {
-              "PreviousAnswer": "IstMann"
+              "previousAnswer": "IstMann"
             }
           ],
           "riskFactors": [
@@ -492,7 +492,7 @@
           "probability": 0.3,
           "preconditions": [
             {
-              "PreviousAnswer": "employed"
+              "previousAnswer": "employed"
             }
           ]
         },
@@ -503,7 +503,7 @@
           "probability": 0.5,
           "preconditions": [
             {
-              "PreviousAnswer": "employed"
+              "previousAnswer": "employed"
             }
           ]
         },
@@ -549,7 +549,7 @@
           "probability": 0.1,
           "preconditions": [
             {
-              "PreviousAnswer": "gymnasium"
+              "previousAnswer": "gymnasium"
             }
           ],
           "riskFactors": [
@@ -582,7 +582,7 @@
               "value": -0.1
             }
           ]
-        },
+        }
 
       ]
     },
@@ -597,7 +597,7 @@
       "answers": [
         {
           "text": "Marrying",
-          "refs": "married",
+          "refs": [ "married" ],
           "satisfaction": 8,
           "money": 5,
           "probability": 0.3,
@@ -615,7 +615,7 @@
           "probability": 0.3,
           "preconditions": [
             {
-              "PreviousAnswer": "married"
+              "previousAnswer": "married"
             }
           ]
         },
@@ -652,7 +652,7 @@
           "text": "Caffeine",
           "satisfaction": 5,
           "money": 7,
-          "probability": 023,
+          "probability": 0.23,
           "riskFactors": [
             {
               "cause": "Heart attack",
