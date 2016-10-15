@@ -60,17 +60,23 @@
           "text" : "Female",
           "satisfaction" : 6,
           "money" : 4,
-          "probability" : 0.49
+          "probability" : 0.45
         }, {
           "text" : "Male",
           "satisfaction" : 4,
           "money" : 6,
-          "probability" : 0.49
+          "probability" : 0.45,
+          "riskFactors": [
+            {
+              "cause" : "Männer leben kürzer, sorry !",
+              "value" : 0.5
+            }
+          ]
         }, {
           "text" : "Undecided",
           "satisfaction" : 3,
           "money" : 8,
-          "probability" : 0.02
+          "probability" : 0.10
         }
       ]
     }

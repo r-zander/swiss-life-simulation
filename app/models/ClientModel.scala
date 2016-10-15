@@ -23,17 +23,25 @@ case class ClientAnsweredQuestion(
                                    answer: String
                                  )
 
+case class ClientEndOfGame(
+                      causeOfDeath: String,
+                      probability: String,
+                      highScore: Int
+                    )
+
 case class GameState(
                       gameId: String,
                       age: Int,
                       money: Int,
                       satisfaction: Int,
-                      lastAnswers: Seq[ClientAnsweredQuestion]
+                      lastAnswers: Seq[ClientAnsweredQuestion],
+                      endOfGame: Option[ClientEndOfGame]
                     )
 
 trait ClientModel {
 
   implicit val ClientErrorFormat = Json.format[ClientError]
+  implicit val ClientEndOfGameFormat = Json.format[ClientEndOfGame]
   implicit val AnswerFormat = Json.format[Answer]
   implicit val QuestionFormat = Json.format[Question]
   implicit val ClientAnsweredQuestionFormat = Json.format[ClientAnsweredQuestion]

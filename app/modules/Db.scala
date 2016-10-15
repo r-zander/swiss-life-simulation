@@ -12,7 +12,7 @@ import scala.util._
 object Db extends ServerModel {
 
 
-  private val _initialGameState = HiddenGameState(null, 0, Nil, Nil)
+  private val _initialGameState = HiddenGameState(null, 0, Nil, Nil, None)
   private val _gameState = collection.concurrent.TrieMap.empty[String, HiddenGameState]
   private val _config = readConfig
 
