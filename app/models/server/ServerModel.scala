@@ -19,7 +19,8 @@ case class Question(topics: Seq[String],
 
   def hasAge(age: Int) = {
     if (ages.isEmpty) age >= 25
-    else ages contains age
+    else if (age <= 80) ages contains age
+    else ages.max >= 80
   }
 }
 
@@ -69,22 +70,40 @@ case class GameState(gameId: String,
                      endOfGame: Option[EndOfGame]) {
 
   private lazy val accumulatedYears = answeredQuestions.map(_.years).sum
+  private lazy val maxYear = answeredQuestions.map(_.ageHigh).max
 
   lazy val money = {
     if (accumulatedYears == 0) 0
     else {
-      val score = answeredQuestions.map(_.moneyScore).sum / accumulatedYears.toDouble
+      // Money zu 50% für letzte Periode und zu 50% für vorhergehende
+      val score = (answeredQuestions.partition(_.ageHigh == maxYear) match {
+        case (last, prev) => (averageMoney(last), averageMoney(prev))
+      }) match {
+        case (Some(lastAverage), None) => lastAverage
+        case (Some(lastAverage), Some(prevAverage)) => (lastAverage + prevAverage) / 2.0
+        case _ => 0.0
+      }
       ServerModel.normalizeScore(score, 0, 10)
     }
   }
 
   lazy val satisfaction = {
-    if (accumulatedYears == 0) 5
+    if (accumulatedYears == 0) 3
     else {
       // Frontend hat Wertebereich 0-6
-      val score = answeredQuestions.map(_.satisfactionScore).sum * 11.0 / (7.0 * accumulatedYears.toDouble)
+      // Satisfaction nur für letzte Periode
+      val (lastPeriod, _) = answeredQuestions.partition(_.ageHigh == maxYear)
+      val score = averageSatisfaction(lastPeriod).getOrElse(5.0) * 7.0 / 11.0
       ServerModel.normalizeScore(score, 0, 6)
     }
+  }
+
+  private def averageMoney(answers: Seq[AnsweredQuestion]) = if (answers.isEmpty) None else {
+    Some(answers.map(_.moneyScore).sum / answers.map(_.years).sum.toDouble)
+  }
+
+  private def averageSatisfaction(answers: Seq[AnsweredQuestion]) = if (answers.isEmpty) None else {
+    Some(answers.map(_.satisfactionScore).sum / answers.map(_.years).sum.toDouble)
   }
 
   def highScore = {
