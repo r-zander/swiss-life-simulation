@@ -3,8 +3,9 @@
 var game;
 var questions;
 var $main = $('#main');
+var $death = $('#death');
 
-$('#splash').click(function (event) {
+function startGame(event) {
     $.ajax("/game/start", {
         success: function (data) {
             game = data;
@@ -18,7 +19,10 @@ $('#splash').click(function (event) {
     });
 
     event.preventDefault();
-});
+}
+$('#splash').click(startGame);
+
+$death.children('.reincarnate').click(startGame);
 
 function updateMainScreen() {
     $main.find('.age > .value').text(game.age);
@@ -36,8 +40,8 @@ function updateMainScreen() {
             $options.empty();
 
             questions.forEach(function (question, index) {
-                var link = $('<a href="#"><img scr="" />' + question.preview + '</a>');
-                link.click(function () {
+                var link = $('<a href="#">' + question.preview + '</a>');
+                link.click(function (event) {
                     $main.find('.topicInstructions').hide();
                     $main.find('.question').text(question.text).show();
                     $main.addClass('question' + (index + 1));
@@ -59,7 +63,14 @@ function updateMainScreen() {
                                 success: function (data) {
                                     game = data;
 
-                                    // TODO check for Death
+                                    if (game.endOfGame !== undefined){
+                                        $main.hide();
+                                        $death.show();
+                                        $death.find('.age').text(game.age);
+                                        $death.find('.score > .value').text(game.endOfGame.highScore);
+                                        $death.find('.causeOfDeath').text(game.endOfGame.causeOfDeath);
+                                        $death.find('h1 .value').text(game.endOfGame.probability);
+                                    }
                                     updateMainScreen();
                                 }
                             });
@@ -68,6 +79,8 @@ function updateMainScreen() {
                         item.append(link);
                         $options.append(item)
                     });
+
+                    event.preventDefault();
 
                 });
                 var item = $('<li>');
